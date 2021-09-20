@@ -189,10 +189,10 @@ def get_transformed_image(img):
                     min_val = val
                     top_right = [j + 20, i - 20]
 
-    print('bottom_left', bottom_left)
-    print('bottom_right', bottom_right)
-    print('top_left', top_left)
-    print('top_right', top_right)
+    # print('bottom_left', bottom_left)
+    # print('bottom_right', bottom_right)
+    # print('top_left', top_left)
+    # print('top_right', top_right)
 
     # pts1 = np.float32([[35,170],[824,44],[47,933],[864,918]])
     pts1 = np.float32([top_left, top_right, bottom_left, bottom_right])
