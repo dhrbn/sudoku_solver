@@ -136,11 +136,11 @@ def get_transformed_image(img):
     top_left = []
     min_val = 1000000000
     for i in range(component_mask.shape[0]):
-        # if i * i > min_val:
-        #     break
+        if i * i > min_val:
+            break
         for j in range(component_mask.shape[1]):
-            # if j * j > min_val:
-            #     break
+            if j * j > min_val:
+                break
             if component_mask[i, j] > 0:
                 val = i * i + j * j
                 if val < min_val:
@@ -149,12 +149,12 @@ def get_transformed_image(img):
 
     bottom_left = []
     min_val = 1000000000
-    for i in range(component_mask.shape[0]):
-        # if (height - i) * (height - i) > min_val:  # TODO: to check these breaks in all cases
-        #     break
+    for i in reversed(range(component_mask.shape[0])):
+        if (height - i) * (height - i) > min_val:
+            continue
         for j in range(component_mask.shape[1]):
-            # if j * j > min_val:
-            #     break
+            if j * j > min_val:
+                break
             if component_mask[i, j] > 0:
                 val = (height - i) * (height - i) + j * j
                 if val < min_val:
@@ -163,8 +163,12 @@ def get_transformed_image(img):
 
     bottom_right = []
     min_val = 1000000000
-    for i in range(component_mask.shape[0]):
-        for j in range(component_mask.shape[1]):
+    for i in reversed(range(component_mask.shape[0])):
+        if (height - i) * (height - i) > min_val:
+            break
+        for j in reversed(range(component_mask.shape[1])):
+            if (width - j) * (width - j) > min_val:
+                break
             if component_mask[i, j] > 0:
                 val = (height - i) * (height - i) + (width - j) * (width - j)
                 if val < min_val:
@@ -174,21 +178,21 @@ def get_transformed_image(img):
     top_right = []
     min_val = 1000000000
     for i in range(component_mask.shape[0]):
-        # if i * i > min_val:
-        #     break
-        for j in range(component_mask.shape[1]):
-            # if (width - j) * (width - j) > min_val:
-            #     break
+        if i * i > min_val:
+            break
+        for j in reversed(range(component_mask.shape[1])):
+            if (width - j) * (width - j) > min_val:
+                break
             if component_mask[i, j] > 0:
                 val = i * i + (width - j) * (width - j)
                 if val < min_val:
                     min_val = val
                     top_right = [j + 20, i - 20]
 
-    # print('bottom_left', bottom_left)
-    # print('bottom_right', bottom_right)
-    # print('top_left', top_left)
-    # print('top_right', top_right)
+    print('bottom_left', bottom_left)
+    print('bottom_right', bottom_right)
+    print('top_left', top_left)
+    print('top_right', top_right)
 
     # pts1 = np.float32([[35,170],[824,44],[47,933],[864,918]])
     pts1 = np.float32([top_left, top_right, bottom_left, bottom_right])
