@@ -128,8 +128,6 @@ def get_transformed_image(img):
     # dilate the image to get text
     opening = cv.morphologyEx(im_bin, cv.MORPH_OPEN, kernel)
 
-    opening = cv.morphologyEx(opening, cv.MORPH_OPEN, kernel)
-
     output = cv.connectedComponentsWithStats(opening, 4, cv.CV_32S)
     (numLabels, labels, stats, centroids) = output
     argmax = np.argsort(stats[:, cv.CC_STAT_AREA])[-2]
