@@ -2,3 +2,4 @@ fonts/*
 fig/*
 .idea*
 __pycache__*
+results/*
